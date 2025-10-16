@@ -1,0 +1,69 @@
+/* Using a Google Font for a more authentic terminal look */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrollbars */
+}
+
+body {
+  background-color: #0d0208; /* Very dark, almost black */
+  color: #00ff41; /* Hacker green */
+  font-family: 'VT323', monospace;
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+}
+
+#terminal {
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  white-space: pre; /* Important for spacing */
+  height: 1.5em; /* Set line height */
+}
+
+h1 {
+  font-size: inherit;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+pre {
+    margin: 1.5rem 0;
+    line-height: 1.2;
+}
+
+.prompt {
+    margin-right: 0.5em;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.2em;
+  background-color: #00ff41;
+  box-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.hidden {
+    display: none;
+}
