@@ -54,3 +54,26 @@ sudo chown -R www-data:www-data /usr/share/nginx/html
 모든 과정이 완료되었습니다!
 
 웹 브라우저를 열고 주소창에 `http://<서버-IP-주소>`를 입력하세요. "냥커월드"의 멋진 해커 터미널 화면이 나타나면 성공적으로 배포된 것입니다.
+
+---
+
+### 🚨 문제 해결: `git clone` 실행 시 인증 실패 오류가 발생하는 경우
+
+터미널에서 `sudo git clone ...` 명령어를 실행했을 때, 아래와 같이 사용자 이름(Username)을 요구하며 "인증이 실패하였습니다" (Authentication failed) 오류가 발생할 수 있습니다.
+
+```
+fatal: https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git/에 대한 인증이 실패아였습니다
+Username for 'https://github.com':
+```
+
+**원인:** 이 문제는 깃헙 저장소(Repository)가 **비공개(Private)**로 설정되어 있기 때문에 발생합니다. 비공개 저장소는 허가된 사용자만 접근할 수 있도록 보안 처리가 되어 있어, 서버에서 다운로드하려고 할 때 로그인을 요구합니다.
+
+**해결 방법:** 저장소를 **공개(Public)**로 변경하면 이 문제를 가장 쉽게 해결할 수 있습니다.
+
+1.  해당 프로젝트의 깃헙 저장소 페이지로 이동합니다.
+2.  오른쪽 위에 있는 **`Settings`** 탭을 클릭합니다.
+3.  페이지 가장 아래로 스크롤하여 **"Danger Zone"** 구역을 찾습니다.
+4.  **`Change repository visibility`** 옆의 **`Change visibility`** 버튼을 클릭합니다.
+5.  **`Make public`**을 선택하고, 안내에 따라 저장소 이름을 입력하여 변경을 확인합니다.
+
+저장소를 공개로 변경한 후, 다시 서버에서 `sudo git clone ...` 명령어를 실행하면 더 이상 로그인 창이 나타나지 않고 성공적으로 프로젝트를 다운로드할 수 있습니다.
