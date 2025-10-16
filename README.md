@@ -1,20 +1,56 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 냥커월드!~ (Nyan Hacker World): 서버 배포 가이드
 
-# Run and deploy your AI Studio app
+이 문서는 냥커월드 프로젝트를 우분투(Ubuntu) 리눅스 서버에 Nginx를 사용하여 배포하는 방법을 상세히 안내합니다.
 
-This contains everything you need to run your app locally.
+## 🚀 우분투 + Nginx 서버에 배포하기
 
-View your app in AI Studio: https://ai.studio/apps/drive/1DpdxdlTHXTrUxeDm6RYCE5bGicWAjcxw
+아래 단계를 따라 깃헙(GitHub) 저장소에 있는 프로젝트를 실제 동작하는 웹사이트로 만드세요.
 
-## Run Locally
+### 1단계: 사전 준비 사항
 
-**Prerequisites:**  Node.js
+배포를 시작하기 전에, 서버에 다음 프로그램들이 설치되어 있는지 확인해야 합니다.
 
+- **Ubuntu Server**: 배포할 리눅스 서버 환경.
+- **Nginx**: 웹 서버 프로그램.
+- **Git**: 깃헙 저장소에서 코드를 가져올 때 필요합니다.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+만약 프로그램이 설치되어 있지 않다면, 아래 명령어로 한 번에 설치할 수 있습니다.
+
+```bash
+# 시스템 패키지 목록을 최신 상태로 업데이트
+sudo apt-get update
+
+# Nginx와 Git을 설치 (-y 플래그는 설치 확인 질문에 자동으로 'yes'로 답합니다)
+sudo apt-get install -y nginx git
+```
+
+### 2단계: 프로젝트 배포 명령어 실행
+
+서버에 SSH로 접속한 후, 아래 명령어들을 순서대로 실행하세요.
+
+```bash
+# 1. Nginx의 기본 웹사이트 경로로 이동합니다.
+# 이 폴더에 있는 파일들이 웹 브라우저에 표시됩니다.
+cd /usr/share/nginx/html
+
+# 2. ⚠️ [주의] 폴더 비우기
+# 기존에 있던 Nginx의 기본 환영 페이지나 다른 파일들을 모두 삭제합니다.
+# 중요한 파일이 없는지 반드시 확인하세요.
+sudo rm -rf ./*
+
+# 3. 깃헙에서 프로젝트 복제(Clone)
+# 아래 URL을 당신의 깃헙 저장소 주소로 반드시 변경해야 합니다!
+# 마지막의 '.'은 현재 폴더에 바로 파일을 다운로드하라는 의미입니다.
+sudo git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git .
+
+# 4. (선택사항) 웹 서버 권한 설정
+# Nginx가 파일들을 정상적으로 읽을 수 있도록 소유권을 변경합니다.
+# 보안 및 안정성을 위해 권장되는 단계입니다.
+sudo chown -R www-data:www-data /usr/share/nginx/html
+```
+
+### 3단계: 배포 확인
+
+모든 과정이 완료되었습니다!
+
+웹 브라우저를 열고 주소창에 `http://<서버-IP-주소>`를 입력하세요. "냥커월드"의 멋진 해커 터미널 화면이 나타나면 성공적으로 배포된 것입니다.
